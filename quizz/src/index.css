@@ -47,7 +47,7 @@ body{
     font-size: 30px;
     font-weight: 500;
 }
-.intro .start-btn{
+.start-btn{
     font-family: 'Karla';
     background-color:#293264;;
     color:#F5F7FB;
@@ -56,9 +56,9 @@ body{
     width: 200px;
     height: 52px;
     font-size: 16px;
-    margin:0;
+    margin: 15px 0px;
 }
-.intro .start-btn:hover{
+.start-btn:hover{
     background-color:#293268;
     font-size: 18px;
 }
@@ -84,9 +84,31 @@ body{
     font-size: 10px;
     text-align: center;
 }
+
+.questions-list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.questions p{
+    background-color: #F5F7FB;
+    border: 0.794239px solid #4D5B9E;
+    border-radius: 7.94239px;
+    padding: 4px 15px;
+    
+}
+.questions p:hover{
+    background-color: #D6DBF5;
+    cursor: pointer;
+}
+.wrapper{
+    margin-top: 40px;
+    text-align: center;
+}
 .line{
     width: 90%;
     height: 1.5px;
-    background-color: #48494e;
+    background-color: #DBDEF0;
     margin-top: 15px;
 }

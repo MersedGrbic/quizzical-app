@@ -8,20 +8,7 @@ import Quizz from './components/Quizz'
 function App() {
   
   const [start,setStart]= React.useState(true)
-  const [quizz,setQuizz]= React.useState([])
-  React.useEffect(()=>{
-   
-const url = 'https://opentdb.com/api.php?amount=5&difficulty=medium'
-
-fetch(url)
-  .then(res => res.json())
-  .then(data => setQuizz(data.results))
-  .catch(error => console.error(error))
-    
-    },[])
-  const quizzElements = quizz.map(elem=>{
-    return <Quizz question={elem.question} key={nanoid()}/>
-  })
+  
   
   function handleClick(){
     setStart(false)
@@ -31,7 +18,7 @@ fetch(url)
     <div className="App">
       
       {start && <Intro handleClick={handleClick}/>}
-      {quizzElements}
+      {!start && <Quizz/>}
       
       
     </div> 
