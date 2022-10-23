@@ -63,47 +63,20 @@ body{
     font-size: 18px;
 }
 
-.questions{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-
-}
-.answers{
-    display: flex;
-    gap: 13px;
-}
-.answers p{
-    padding: 5px 15px;
-    background-color:#293268;
-    color: white;
-    border-radius: 8px;
-    margin:0;
-    font-size: 10px;
-    text-align: center;
-}
-
-.questions-list{
+.answer-list{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-}
-.questions p{
-    background-color: #F5F7FB;
-    border: 0.794239px solid #4D5B9E;
-    border-radius: 7.94239px;
-    padding: 4px 15px;
     
 }
-.questions p:hover{
-    background-color: #D6DBF5;
-    cursor: pointer;
+.answer{
+    color: #4D5B9E;
+    border: 0.794239px solid #4D5B9E;
+    border-radius: 7.94239px;
+    padding: 4px 19px;
 }
 .wrapper{
-    margin-top: 40px;
     text-align: center;
 }
 .line{
