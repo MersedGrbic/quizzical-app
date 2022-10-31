@@ -1,34 +1,48 @@
 import React from "react";
-import Answer from "./Answer"
+import { useState } from "react";
+import QuestionCard from './QuestionCard'
+export default function Quizz(){
+const [data,setData] = useState('')
+const [startAgain,setStartAgain] = useState(false)
+const url = 'https://the-trivia-api.com/api/questions?limit=5'
 
-export default function Quizz(props){
- 
-     function decodeHTML(html){
-    let txt= document.createElement('textarea');
-    txt.innerHTML=html;
-    return txt.value
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
 }
-function shuffleArray(array) {
-   for (let i = array.length - 1; i > 0; i--) {
-       const j = Math.floor(Math.random() * (i + 1));
-       [array[i], array[j]] = [array[j], array[i]];
-   }
-}
- const answers = [decodeHTML(props.data.correct_answer), decodeHTML(props.data.incorrect_answers[0]),decodeHTML(props.data.incorrect_answers[1]),decodeHTML(props.data.incorrect_answers[2])]
- shuffleArray(answers)
- const answersElements= answers.map(ans=>{
-    return <Answer 
-    answer={ans}
-    correctAnswer={(props.data.correct_answer)}
-    on = {true}
-    />
- })
- return (
-    <div className="wrapper">
-        <h2>{decodeHTML(props.data.question)}</h2>
-        <div className="answer-list">
-        {answersElements}
-        </div>
-    </div>
+
+React.useEffect(()=>{
+  fetch(url)
+   .then(res=>res.json())
+   .then(data=>{
+    const shuffledData= data.map(data=>{
+      const options = [data.correctAnswer,data.incorrectAnswers[0],data.incorrectAnswers[1],data.incorrectAnswers[2]]
+      const shuffledOptions = shuffle(options)
+      return {
+        ...data,
+        shuffledOptions
+      }
+    })
+    setData(shuffledData)
+   })
+  },[startAgain])
+
+  
+  
+  return (
+    <QuestionCard data={data} />
   )
 }
