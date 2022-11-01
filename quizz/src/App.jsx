@@ -11,14 +11,14 @@ function App() {
 
 
 function handleClick(){
-    setStart(false)
+    setStart(prevState=>!prevState)
   }
  
  
   return (
     <div className="App">
       
-      {start ? <Intro handleClick={handleClick}/> : <Quizz/> }
+      {start ? <Intro handleClick={handleClick}/> : <Quizz handleClick={handleClick}/> }
       
       
     </div> 

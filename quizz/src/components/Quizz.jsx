@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import QuestionCard from "./QuestionCard";
-export default function Quizz(){
+export default function Quizz(props){
 const [data,setData] = useState('')
 const [startAgain,setStartAgain] = useState(false)
 const [check, setCheck] = useState(false)
@@ -65,12 +65,13 @@ React.useEffect(()=>{
   }
   
   function handleCheck(){
-    setCheck(true)
+    setCheck(prevState=> !prevState)
     
   }
   function handleStart(){
-    setStartAgain(true)
-    setCheck(false)
+    setStartAgain(prevState=>!prevState)
+    setCheck(prevState=>!prevState)
+    props.handleClick()
 
   }
   return (
