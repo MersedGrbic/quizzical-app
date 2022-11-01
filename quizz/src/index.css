@@ -88,9 +88,13 @@ body{
     flex-direction: column;
     text-align: start;
     margin:10px auto;    
+    
 }
 .wrapper h1{
     max-width: 800px;
+    
+}
+.question-wrapper{
     
 }
 .answer-list .active{

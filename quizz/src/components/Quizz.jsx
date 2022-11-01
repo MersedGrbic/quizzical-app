@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import QuestionCard from './QuestionCard'
+import QuestionCard from "./QuestionCard";
 export default function Quizz(){
 const [data,setData] = useState('')
 const [startAgain,setStartAgain] = useState(false)
+const [check, setCheck] = useState(false)
 const url = 'https://the-trivia-api.com/api/questions?limit=5'
 
 function shuffle(array) {
@@ -32,7 +33,9 @@ React.useEffect(()=>{
       const options = [data.correctAnswer,data.incorrectAnswers[0],data.incorrectAnswers[1],data.incorrectAnswers[2]]
       const shuffledOptions = shuffle(options)
       return {
-        ...data,
+        question: data.question,
+        correctAnswer: data.correctAnswer,
+        id: data.id,
         shuffledOptions
       }
     })
@@ -40,9 +43,40 @@ React.useEffect(()=>{
    })
   },[startAgain])
 
+  function displayData(){
+    if(data.length>0){
+      const dataElements = data.map(el=>{
+        console.log(el)
+       return <QuestionCard on={check} correct={el.correctAnswer}question={el.question} answers={el.shuffledOptions} id={el.id}/>
+       
+      })
+      return dataElements
+      
+   }else{
+       return (
+              <div className="spinner-wrap">
+                <div className="spinner">
+                   <div className="loader l1"></div>
+                   <div className="loader l2"></div>
+                </div>
+              </div> 
+       )
+   }
+  }
   
-  
+  function handleCheck(){
+    setCheck(true)
+    
+  }
+  function handleStart(){
+    setStartAgain(true)
+    setCheck(false)
+
+  }
   return (
-    <QuestionCard data={data} />
+    <div className="wrapper">
+    {displayData()}
+    {check ? <button className="start-btn middle" onClick={handleStart}>New Game</button> : <button className="start-btn middle" onClick={handleCheck}>Check Answers</button>}
+    </div>
   )
 }

@@ -1,96 +1,34 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Answers from './Answers'
 import { nanoid } from "nanoid";
 export default function QuestionCard(props){
-    const [on,setOn] = useState(false)
-    const [data,setData] = useState('')
-    function handleClick(){
-        setOn(prevState=>!prevState)
-        console.log('changed')
+    const[userAnswer,setUserAnswer] = useState('')
+    console.log(props.correct)
+    function handleAnswer(event){
+        setUserAnswer(event.target.innerText)
     }
-    React.useEffect(()=>{
-        if(props.data.length>0){
-           setData(props.data.map(data=>{
-             const answers = data.shuffledOptions.map(option=>{
-                return {
-                    answerId : nanoid(),
-                    option : option,
-                    clicked : false,
-                    correct : data.correctAnswer == option ? true : false
-                }
-                
-                
-            
-            })
-            return {
-                question : data.question,
-                answerOption : answers
-            }     
-
-           })
-                
-    )}
-    },[props.data])
     
-   
-    function handleUserAnswer(id){
-       
-      setData(prevState=>{
-        
-        const newState = prevState.map(el=>{
-            const answers = el.answerOption.map(ans=>{
-                return {
-                    answerId: ans.answerId,
-                    option: ans.option,
-                    clicked: ans.answerId==id ? true : ans.clicked,
-                    correct: ans.correct
-                }
-            })
-            return {
-                question: el.question,
-                answerOption : answers
-
-            }
-            
-        })
-        
-        return newState    
-        
-      })
-    }
-
-    function displayData(){
-        if(data.length>0){
-           const dataElements = data.map(el=>{
-            return (
-                <>
-                <h1>{el.question}</h1>
-                <Answers answers = {el.answerOption} handleClick = {handleUserAnswer} on={on}/>
-                </>
-            )
-           })
-            return dataElements
-           
+    const answerEl= props.answers.map(ans=>{
+        if(!props.on){
+        return <p onClick={handleAnswer} style={{backgroundColor: ans === userAnswer ? "#D6DBF5" : "#F5F7FB"}} className="answer">{ans}</p>
         }else{
-            return (
-                <div className="spinner-wrap">
-                  <div className="spinner">
-                   <div className="loader l1"></div>
-                   <div className="loader l2"></div>
-                  </div>
-                </div>
-            )
+            if(ans === props.correct){
+                return <p className="answer" style={{backgroundColor: "#94D7A2"}}>{ans}</p>
+            }else{
+                return <p className="answer" style={{backgroundColor: ans===userAnswer ? "#F8BCBC" : "#F5F7FB"}}>{ans}</p>
+            }
         }
-    }
-   
+    })
+    
     return (
-            <div key={nanoid()} className="wrapper">
-                {displayData()}
-                <button className="start-btn middle" onClick={handleClick}>Check Answers</button>
-            </div>
-    )
+        <div className="question-wrapper">
+        <h1>{props.question}</h1>
+        <div className="answer-list">
+        {answerEl}
+        </div>
+        </div>
         
-             
-           
+    )
 }
+    
+ 
