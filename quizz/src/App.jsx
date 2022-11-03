@@ -3,6 +3,7 @@ import Intro from './components/Intro'
 import Quizz from './components/Quizz'
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import blob from './images/blob1.svg'
 function App() {
   
   const [start,setStart]= useState(true)
@@ -18,7 +19,7 @@ const handleNumberOfQuestions = event => {
 function handleClick(){
     setStart(prevState=>!prevState)
   }
- 
+ console.log('render')
  
   return (
     <div className="App">

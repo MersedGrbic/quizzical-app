@@ -7,7 +7,6 @@ const [data,setData] = useState('')
 const [startAgain,setStartAgain] = useState(false)
 const [check, setCheck] = useState(false)
 const url = `https://the-trivia-api.com/api/questions?${props.category}limit=${props.numOfQuestions}`
-
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
 
@@ -49,10 +48,10 @@ React.useEffect(()=>{
       const dataElements = data.map(el=>{
         
        return (
-       <div key={nanoid()}>
+       <>
        <QuestionCard on={check} correct={el.correctAnswer}question={el.question} answers={el.shuffledOptions} id={el.id}/>
        <div key={nanoid} className="line"></div>
-       </div>
+       </>
        )
        
       })
