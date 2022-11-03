@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import QuestionCard from "./QuestionCard";
+import { nanoid } from "nanoid";
 export default function Quizz(props){
 const [data,setData] = useState('')
 const [startAgain,setStartAgain] = useState(false)
 const [check, setCheck] = useState(false)
-const url = 'https://the-trivia-api.com/api/questions?limit=5'
+const url = `https://the-trivia-api.com/api/questions?${props.category}limit=${props.numOfQuestions}`
 
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -46,8 +47,13 @@ React.useEffect(()=>{
   function displayData(){
     if(data.length>0){
       const dataElements = data.map(el=>{
-        console.log(el)
-       return <QuestionCard on={check} correct={el.correctAnswer}question={el.question} answers={el.shuffledOptions} id={el.id}/>
+        
+       return (
+       <div key={nanoid()}>
+       <QuestionCard on={check} correct={el.correctAnswer}question={el.question} answers={el.shuffledOptions} id={el.id}/>
+       <div key={nanoid} className="line"></div>
+       </div>
+       )
        
       })
       return dataElements

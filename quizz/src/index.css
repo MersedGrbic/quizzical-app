@@ -62,14 +62,14 @@ body{
 
 .answer-list{
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 12px;  
     width:100%;
-    
-
 }
 .answer-list .answer{
+        width:100%;
         color: #4D5B9E;
         background: #F5F7FB;
         border: 0.794239px solid #4D5B9E;
@@ -95,19 +95,20 @@ body{
     
 }
 .question-wrapper{
-    
+width: 100%;
 }
 .answer-list .active{
     background-color: #4D5B9E;
     color: white;
+    
 }
 .middle{
     display: block;
     margin: 30px auto;
 }
 .line{
-    width: 90%;
-    height: 1.5px;
+    width: 100%;
+    height: 4px;
     background-color: #DBDEF0;
     margin-top: 15px;
 }
@@ -173,3 +174,56 @@ body{
      transform: rotateX(-180deg) skew(10deg, 5deg);
     }
    }
+
+   /*Select css*/
+   .select {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 200px;
+    font-family: 'Karla';
+}   
+
+.select select {
+        font-family: 'Karla';
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+        padding: 10px 15px;
+        outline: 0;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        background: #f0f4fa;
+        color: #293264;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+        .select select::-ms-expand {
+            display: none;
+        }
+        .select select:hover,
+        .select select:focus {
+            color: #293264;
+            
+        }
+        .select select:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+.select_arrow {
+    position: absolute;
+    top: 16px;
+    right: 15px;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 8px 5px 0px 5px;
+    border-color: #7b7b7b transparent transparent transparent;
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+    border-top-color: #000000;
+}
+.select select:disabled ~ .select_arrow {
+    border-top-color: #cccccc;
+}
