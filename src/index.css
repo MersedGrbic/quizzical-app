@@ -108,6 +108,9 @@ body{
     color: white;
     
 }
+.result{
+    font-size: 20px;
+}
 .middle{
     display: block;
     margin: 30px auto;

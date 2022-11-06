@@ -6,6 +6,8 @@ export default function Quizz(props){
 const [data,setData] = useState('')
 const [startAgain,setStartAgain] = useState(false)
 const [check, setCheck] = useState(false)
+const [chekAnswers, setCheckAnswers] = useState('')
+const [message, setMessage] = useState('')
 const url = `https://the-trivia-api.com/api/questions?${props.category}limit=${props.numOfQuestions}`
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -25,6 +27,7 @@ function shuffle(array) {
   return array;
 }
 
+
 React.useEffect(()=>{
   fetch(url)
    .then(res=>res.json())
@@ -36,20 +39,39 @@ React.useEffect(()=>{
         question: data.question,
         correctAnswer: data.correctAnswer,
         id: data.id,
-        shuffledOptions
+        shuffledOptions,
+        userAnswer: ''
       }
     })
     setData(shuffledData)
+    points = data.length
    })
   },[startAgain])
-
+  function handleAnswer(id){
+    setData(prevState=>{
+      const newState = prevState.map(element=>{
+        if(element.id == id){
+          return {
+            ...element,
+            userAnswer: event.target.innerText
+          }
+        }else{
+          return {
+            ...element
+          }
+        }
+      })
+      return newState
+    })
+  }
+  
   function displayData(){
     if(data.length>0){
       const dataElements = data.map(el=>{
         
        return (
        <>
-       <QuestionCard on={check} correct={el.correctAnswer}question={el.question} answers={el.shuffledOptions} id={el.id}/>
+       <QuestionCard handleAnswer={handleAnswer}on={check} correct={el.correctAnswer}question={el.question} answers={el.shuffledOptions} id={el.id} userAnswer={el.userAnswer}/>
        <div key={nanoid} className="line"></div>
        </>
        )
@@ -70,18 +92,40 @@ React.useEffect(()=>{
   }
   
   function handleCheck(){
+    let checking = 0;
+    
+    data.map(el=>{
+      if(el.userAnswer != ''){
+        checking += 1
+      }
+    })
+
+    if(checking === data.length){
     setCheck(prevState=> !prevState)
+    let result = 0
+    data.map(el=>{
+      if(el.correctAnswer === el.userAnswer){
+        result +=1
+      }
+      
+    })
+    setMessage(`You scored ${result}/${data.length}`)
+    }else{
+      setMessage('Please answer all the questions')
+    }
     
   }
   function handleStart(){
     setStartAgain(prevState=>!prevState)
     setCheck(prevState=>!prevState)
     props.handleClick()
+    
 
   }
   return (
     <div className="wrapper">
     {displayData()}
+    <p className="middle result">{message}</p>
     {check ? <button className="start-btn middle" onClick={handleStart}>New Game</button> : <button className="start-btn middle" onClick={handleCheck}>Check Answers</button>}
     </div>
   )
