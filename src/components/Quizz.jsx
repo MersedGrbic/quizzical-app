@@ -9,6 +9,7 @@ const [check, setCheck] = useState(false)
 const [chekAnswers, setCheckAnswers] = useState('')
 const [message, setMessage] = useState('')
 const url = `https://the-trivia-api.com/api/questions?${props.category}limit=${props.numOfQuestions}`
+
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
 

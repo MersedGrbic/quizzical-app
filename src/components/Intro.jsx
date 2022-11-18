@@ -44,6 +44,7 @@ export default function Intro(props){
                     </select>
                     <div className="select_arrow">
                     </div>
+
                 </div>
                 <label className="label" htmlFor="numberOfQuestions">Number of Questions</label>
                 <div className="select">
@@ -57,6 +58,7 @@ export default function Intro(props){
                     <div className="select_arrow">
                     </div>
                 </div>
+                
                 
                 <button onClick={props.handleClick} className="start-btn">Start quiz</button>
         </div>

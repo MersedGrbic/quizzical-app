@@ -110,6 +110,9 @@ body{
 }
 .result{
     font-size: 20px;
+    background-color: #f89f9f;
+    padding: 10px;
+    border-radius: 10px;
 }
 .middle{
     display: block;
